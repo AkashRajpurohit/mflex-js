@@ -198,6 +198,10 @@ export default class MoviesDAO {
       // Add the stages to queryPipeline in the correct order.
     ]
 
+    queryPipeline.push(skipStage)
+    queryPipeline.push(limitStage)
+    queryPipeline.push(facetStage)
+
     try {
       const results = await (await movies.aggregate(queryPipeline)).next()
       const count = await (await movies.aggregate(countingPipeline)).next()
